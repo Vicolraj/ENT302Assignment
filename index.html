@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS - Attendance Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body >
+    <header class="header">
+        <div class="container glassEffect">
+            <h1>A.M.System</h1>
+            <!-- <a href="./users.html" title="Get the list of users"> <i><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+</svg></i> <span>Users</span></a> -->
+        </div>
+
+        
+    </header>
+
+    <div  class="closeModal"> <i onclick="closeModal()"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+</svg>
+</i></div>
+
+    <main class="main-content">
+        <section class="hero-content">
+            <h2>Streamline Your Attendance Tracking</h2>
+            <p>Our system provides a simple yet powerful way to manage user logins and logouts with detailed activity logs.</p>
+            <div class="cta-buttons">
+                <button onclick="showSignUp()" class="btn btn-primary">SignUp</button>
+                <button onclick="showLogin()" class="btn btn-secondary">Login</button>
+                <button onclick="window.location = './admin.html'" class="btn btn-secondary">Admin</button>
+            </div>
+        </section>
+           
+    </main>
+
+    <section class="from-modal-container">
+        <section id="signup" class='formContainer'>
+            <h3 class="formCaption">SignUp</h3>
+            <form id="registrationForm">
+                <div>
+                    <label for="fullName">Full Name</label>
+                    <input 
+                    type="text" 
+                    id="fullname"  
+                    required 
+                    placeholder='Fullname'
+                    />
+                </div>
+                
+                <div>
+                    <label for="email">Email</label>
+                    <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                  
+                    required
+                    placeholder='Email'
+                    />
+                </div>
+                
+                <div>
+                    <label for="mobileNo">Mobile Number</label>
+                    <input 
+                    type="tel" 
+                    id="mobileno" 
+                    name="mobileno" 
+                    placeholder='Mobile No'
+                    />
+                </div>
+                
+                <div>
+                    <label for="about">Matric</label>
+                    <input 
+                    id="matric" 
+                    name="matric" 
+                    rows="2"
+                    placeholder='Matric'
+                    ></input>
+                </div>
+                
+                <div>
+                    <label for="password">Password</label>
+                    <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required 
+                    placeholder='Password'
+                    minlength="8"
+                    maxlength="8"
+                    />
+                </div>
+                
+                <div>
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+        </section>
+
+
+        <section id="login" class='formContainer'>
+            <h3 class="formCaption">Login</h3>
+            <form id="loginForm">  
+                <br/>             
+                <br/>             
+                <div>
+                    <label for="lEmail">Email</label>
+                    <input 
+                    type="email" 
+                    id="lEmail" 
+                    name="lEmail" 
+                    required
+                    placeholder='Email'
+                    />
+                </div>
+            
+                <div>
+                    <label for="lPassword">Password</label>
+                    <input 
+                    type="password" 
+                    id="lPassword" 
+                    name="lPassword" 
+                    required 
+                    minlength="8"
+                    maxlength="8"
+                    placeholder='Password'
+                    />
+                </div>
+                
+                <div>
+                    <button type="submit">Log in</button>
+                </div>
+            </form>
+        </section>
+
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Attendance Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/modal.js"></script>
+    <script src="script.js"></script>
+    
+ 
+ 
+</body>
+</html>

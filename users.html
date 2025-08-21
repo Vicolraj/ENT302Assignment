@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: .5s;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: url(./img/amsmainbg.webp);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    /* Glass effect class */
+    .glassEffect {
+      background: rgba(59, 59, 59, 0.254);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0px 8px 25px rgba(0,0,0,0.35);
+    }
+
+
+
+
+    /* === Student Card === */
+    .employee-card {
+      padding: 20px;
+      margin-bottom: 20px;
+    
+    }
+
+    .employee-details {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .employee-details img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+    }
+
+    .info h2 {
+      margin: 0;
+    }
+
+    .btn {
+      background: rgba(20, 242, 61, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      color: white;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: 0.3s;
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 30px;
+    }
+
+    .btn:hover {
+      transform: scale(1.02);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    
+
+    /* === Attendance === */
+    .attendance-card {
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    .attendance-card:hover{
+        transform: translate(-3px, -3px);
+    }
+
+    .attendance {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, .05fr));
+      gap: 15px;
+      max-height: 700px;
+    }
+
+    .attendance-card h4 {
+      margin: 0 0 10px;
+    }
+
+    
+
+  </style>
+</head>
+<body>
+  <div id="container" class="container">
+
+    <!-- Student Card -->
+    <div class="employee-card glassEffect">
+      <div class="employee-details">
+        <div id="info" class="info">
+          <h2><em>Loading ...</em></h2>
+          <!-- <p></p>
+          <p>📞 (+62) 812 3456-7890</p>
+          <p>📧 natashiakhaleira@gmail.com</p> -->
+        </div>
+        <button onclick="logout()" class="btn">Logout</button>
+      </div>
+
+
+    <!-- Attendance History -->
+    <div class="glassEffect" style="padding:20px; margin-bottom:20px;">
+      <h3>Attendance History</h3>
+      <div id="attendance" class="attendance">
+        <div class="attendance-card glassEffect">
+          <p><i>Loading...</i></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="users.js"></script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Attendance Dashboard</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+
+    background-color: black;
+    background: url(./img/amsmainbg.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
+    }
+
+  .isactive,
+  .notactive{
+    aspect-ratio: 1/1;
+    width: 20px;
+    background-color: red;
+    border-radius: 100%;
+  }
+
+  .isactive{
+    background-color: green;
+  }
+
+  
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: #1e1f26;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar .brand {
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .navbar .nav-links a.active,
+    .navbar .nav-links a:hover {
+      background: #2f80ed;
+    }
+
+    /* Dashboard Container */
+    .dashboard {
+      padding: 20px;
+    }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .card h4 {
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #666;
+    }
+
+    .card p {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2f80ed;
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      background: #2f80ed;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* Attendance Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+
+    th {
+      background: #fafafa;
+      font-weight: 600;
+    }
+
+    td img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    #studentLogs{
+      background-color: rgba(0, 0, 0, 0.749);
+      position: fixed;
+      top: 0;
+      width: 100vw;
+      left: 0;
+      max-width: 700px;
+      height: 100svh;
+      padding: 10px;
+      padding-top: 65px;
+      display: grid;
+      grid-template-columns: repeat(4, .3fr);
+      color: white;
+      backdrop-filter: blur(5px);
+      overflow-y: auto;
+      gap: 10px;
+      transform: translateX(-80vw);
+      transition: .3s;
+    }
+
+    #studentLogs > *{
+      background-color: rgba(0, 0, 0, 0.241);
+      white-space: nowrap;
+      padding: 10px;
+      border: 1px solid;
+      border-color: white;
+      height: max-content;
+      
+    }
+
+    #studentLogs > *:nth-child(even){
+      border-left-color: transparent;
+      padding-left: 25px;
+      margin-left: -11px;
+    }
+
+    #studentLogs > *:nth-child(odd){
+      border-right-color: transparent;
+      padding-right: 25px;
+    }
+
+    #close{
+      position: absolute;
+    }
+
+    #loaderContainer{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        z-index: 99;
+        backdrop-filter: blur(3px);
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.556);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        scale: 0;
+    }
+
+    .loader {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin-bottom: -5px;
+        color: white;
+        text-indent: 25px;
+        align-items: center;
+    }
+    .loader::after,
+    .loader::before {
+        content: '';  
+        box-sizing: border-box;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 2px solid #FFF;
+        position: absolute;
+        left: 0;
+        top: 0;
+        animation: animloader 2s linear infinite;
+    }
+    .loader::after {
+        animation-delay: 1s;
+    }
+
+    @keyframes animloader {
+        0% {
+            transform: scale(0);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0;
+        }
+    }
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="brand">Admin Panel | (AMS)</div>
+    <button onclick="closeDialog()" class="btn">Close Dialog</button>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <div class="card">
+        <h4>Welcome</h4>
+        <p id="active"></p>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+        <button onclick="refresh()" class="btn">Refresh</button>
+        
+    </div>
+
+    <!-- Attendance Table -->
+    <table >
+      <thead>
+        <tr>
+          <th>SN</th>
+          <th>Name</th>
+          <th>Matric</th>
+          <th>Email</th>
+          <th>Mobile NO.</th>
+          <th>Active</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody  id="tablebody">
+      </tbody>
+    </table>
+
+      <div id="studentLogs">
+             <p><i>Loading...</i></p>
+      </div>
+   
+    
+  </div>
+
+  <div id="loaderContainer">
+    <div class="loader" id="loader"></div>
+  </div>
+  <script src="adminDashboard.js">
+  
+  </script>
+</body>
+</html>
